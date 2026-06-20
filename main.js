@@ -5,17 +5,15 @@ import { initMap, updateMapData } from './map.js'
 document.addEventListener('DOMContentLoaded', () => {
   initMap()
 
-  document.getElementById('filter-form').addEventListener('submit', (e) => {
-    e.preventDefault()
-    document.querySelector('.sidebar').classList.remove('sidebar--open')
-    loadEarthquakes()
-  })
-
-
   const sidebar = document.querySelector('.sidebar')
   const toggleBtn = document.getElementById('sidebar-toggle')
 
-  document.getElementById('sidebar-toggle').addEventListener('click', () => {
+  document.getElementById('filter-form').addEventListener('submit', (e) => {
+    e.preventDefault()
+    loadEarthquakes(sidebar, toggleBtn)
+  })
+
+  toggleBtn.addEventListener('click', () => {
     sidebar.classList.add('sidebar--open')
     toggleBtn.hidden = true
   })
@@ -26,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 })
 
-function loadEarthquakes() {
+function loadEarthquakes(sidebar, toggleBtn) {
   const starttime = document.getElementById('starttime').value
   const endtime = document.getElementById('endtime').value
   const minmagnitude = document.getElementById('minmagnitude').value
@@ -65,6 +63,8 @@ function loadEarthquakes() {
       }
       status.hidden = true
       status.textContent = ''
+      sidebar.classList.remove('sidebar--open')
+      toggleBtn.hidden = false
       updateMapData(geojson)
     })
     .catch((err) => {
