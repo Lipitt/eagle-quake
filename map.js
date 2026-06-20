@@ -12,6 +12,31 @@ export function initMap() {
   })
 
   map.addControl(new maplibregl.NavigationControl())
+
+  map.on('load', () => {
+    map.on('click', 'quakes-layer', (e) => {
+      const { place, mag, time } = e.features[0].properties
+      const coords = e.features[0].geometry.coordinates
+
+      new maplibregl.Popup()
+        .setLngLat(coords)
+        .setHTML(
+          `<div class="popup">
+            <p class="popup__place">${place}</p>
+            <p class="popup__mag">Magnitude: <strong>${mag}</strong></p>
+            <p class="popup__time">${new Date(time).toLocaleString()}</p>
+          </div>`
+        )
+        .addTo(map)
+    })
+
+    map.on('mouseenter', 'quakes-layer', () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mouseleave', 'quakes-layer', () => {
+      map.getCanvas().style.cursor = ''
+    })
+  })
 }
 
 export function updateMapData(geojson) {
@@ -50,26 +75,4 @@ export function updateMapData(geojson) {
     },
   })
 
-  map.on('click', 'quakes-layer', (e) => {
-    const { place, mag, time } = e.features[0].properties
-    const coords = e.features[0].geometry.coordinates
-
-    new maplibregl.Popup()
-      .setLngLat(coords)
-      .setHTML(
-        `<div class="popup">
-          <p class="popup__place">${place}</p>
-          <p class="popup__mag">Magnitude: <strong>${mag}</strong></p>
-          <p class="popup__time">${new Date(time).toLocaleString()}</p>
-        </div>`
-      )
-      .addTo(map)
-  })
-
-  map.on('mouseenter', 'quakes-layer', () => {
-    map.getCanvas().style.cursor = 'pointer'
-  })
-  map.on('mouseleave', 'quakes-layer', () => {
-    map.getCanvas().style.cursor = ''
-  })
 }

@@ -7,11 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('filter-form').addEventListener('submit', (e) => {
     e.preventDefault()
+    document.querySelector('.sidebar').classList.remove('sidebar--open')
     loadEarthquakes()
   })
 
+
+  const sidebar = document.querySelector('.sidebar')
+  const toggleBtn = document.getElementById('sidebar-toggle')
+
   document.getElementById('sidebar-toggle').addEventListener('click', () => {
-    document.querySelector('.sidebar').classList.toggle('sidebar--open')
+    sidebar.classList.add('sidebar--open')
+    toggleBtn.hidden = true
+  })
+
+  document.getElementById('sidebar-close').addEventListener('click', () => {
+    sidebar.classList.remove('sidebar--open')
+    toggleBtn.hidden = false
   })
 })
 
@@ -58,7 +69,7 @@ function loadEarthquakes() {
     })
     .catch((err) => {
       status.hidden = false
-      status.textContent = 'Failed to load earthquake data. Please try again.'
+      status.textContent = `Failed to load: ${err.message}`
       status.className = 'panel__status panel__status--error'
       console.error(err)
     })
