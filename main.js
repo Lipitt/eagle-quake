@@ -1,7 +1,6 @@
 import './styles/main.scss'
 import { fetchEarthquakes } from './api.js'
 import { initMap, updateMapData } from './map.js'
-import { setLoading, setError, setEmpty, clearStatus } from './ui.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   initMap()
@@ -20,36 +19,47 @@ function loadEarthquakes() {
   const starttime = document.getElementById('starttime').value
   const endtime = document.getElementById('endtime').value
   const minmagnitude = document.getElementById('minmagnitude').value
+  const status = document.getElementById('status')
 
   if (!starttime || !endtime) {
-    setError('Please select a start and end date.')
+    status.hidden = false
+    status.textContent = 'Please select a start and end date.'
+    status.className = 'panel__status panel__status--error'
     return
   }
   if (new Date(starttime) >= new Date(endtime)) {
-    setError('Start date must be before end date.')
+    status.hidden = false
+    status.textContent = 'Start date must be before end date.'
+    status.className = 'panel__status panel__status--error'
     return
   }
   if (minmagnitude < 0 || minmagnitude > 10) {
-    setError('Magnitude must be between 0 and 10.')
+    status.hidden = false
+    status.textContent = 'Magnitude must be between 0 and 10.'
+    status.className = 'panel__status panel__status--error'
     return
   }
 
-  setLoading(true)
+  status.hidden = false
+  status.textContent = 'Loading...'
+  status.className = 'panel__status'
 
   fetchEarthquakes({ starttime, endtime, minmagnitude })
     .then((geojson) => {
-      clearStatus()
       if (geojson.features.length === 0) {
-        setEmpty()
+        status.hidden = false
+        status.textContent = 'No earthquakes found for the selected filters.'
+        status.className = 'panel__status'
         return
       }
+      status.hidden = true
+      status.textContent = ''
       updateMapData(geojson)
     })
     .catch((err) => {
-      setError('Failed to load earthquake data. Please try again.')
+      status.hidden = false
+      status.textContent = 'Failed to load earthquake data. Please try again.'
+      status.className = 'panel__status panel__status--error'
       console.error(err)
-    })
-    .finally(() => {
-      setLoading(false)
     })
 }
