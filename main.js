@@ -10,7 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggleBtn = document.getElementById('sidebar-toggle')
   const status = document.getElementById('status')
 
+  const submitBtn = document.querySelector('.sidebar__submit')
+
   worker.onmessage = ({ data }) => {
+    submitBtn.disabled = false
+
     if (!data.ok) {
       status.hidden = false
       status.textContent = `Failed to load: ${data.error}`
@@ -68,6 +72,12 @@ function loadEarthquakes(status) {
     status.className = 'panel__status panel__status--error'
     return
   }
+  if (new Date(endtime) > new Date()) {
+    status.hidden = false
+    status.textContent = 'End date cannot be in the future.'
+    status.className = 'panel__status panel__status--error'
+    return
+  }
   if (new Date(starttime) >= new Date(endtime)) {
     status.hidden = false
     status.textContent = 'Start date must be before end date.'
@@ -84,6 +94,7 @@ function loadEarthquakes(status) {
   status.hidden = false
   status.textContent = 'Loading...'
   status.className = 'panel__status'
+  document.querySelector('.sidebar__submit').disabled = true
 
   worker.postMessage({ starttime, endtime, minmagnitude })
 }
