@@ -38,6 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
     loadEarthquakes(status)
   })
 
+  document.querySelectorAll('input[type="date"]').forEach((input) => {
+    input.addEventListener('change', () => {
+      if (!input.value) return
+      const [year, month, day] = input.value.split('-')
+      if (year.length > 4) input.value = `${year.slice(0, 4)}-${month}-${day}`
+    })
+  })
+
   toggleBtn.addEventListener('click', () => {
     sidebar.classList.add('sidebar--open')
     toggleBtn.hidden = true

@@ -23,6 +23,7 @@ self.onmessage = ({ data }) => {
 
       fetchEarthquakes({ starttime, endtime, minmagnitude })
         .then((geojson) => {
+          geojson.features.sort((a, b) => a.properties.mag - b.properties.mag)
           if (useCache) setCache(key, geojson)
           self.postMessage({ ok: true, geojson, fromCache: false })
         })
