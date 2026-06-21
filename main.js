@@ -25,8 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return
     }
 
-    status.hidden = true
-    status.textContent = ''
+    status.hidden = false
+    status.textContent = `${data.geojson.features.length} earthquakes found.${data.fromCache ? ' (from cache)' : ''}`
+    status.className = 'panel__status'
     sidebar.classList.remove('sidebar--open')
     toggleBtn.hidden = false
     updateMapData(data.geojson)
