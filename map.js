@@ -2,6 +2,8 @@ import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
 let map
+let activePopup = null
+let activeCoords = null
 
 export function initMap() {
   map = new maplibregl.Map({
@@ -18,7 +20,15 @@ export function initMap() {
       const { place, mag, time } = e.features[0].properties
       const coords = e.features[0].geometry.coordinates
 
-      new maplibregl.Popup()
+      if (activePopup && activeCoords &&
+          coords[0] === activeCoords[0] && coords[1] === activeCoords[1]) {
+        activePopup.remove()
+        activePopup = null
+        activeCoords = null
+        return
+      }
+
+      activePopup = new maplibregl.Popup()
         .setLngLat(coords)
         .setHTML(
           `<div class="popup">
@@ -28,6 +38,13 @@ export function initMap() {
           </div>`
         )
         .addTo(map)
+
+      activeCoords = coords
+
+      activePopup.on('close', () => {
+        activePopup = null
+        activeCoords = null
+      })
     })
 
     map.on('mouseenter', 'quakes-layer', () => {

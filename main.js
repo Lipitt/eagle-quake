@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
     loadEarthquakes(status)
   })
 
+  const today = new Date().toISOString().split('T')[0]
+  document.getElementById('starttime').max = today
+  document.getElementById('endtime').max = today
+
   document.querySelectorAll('input[type="date"]').forEach((input) => {
     input.addEventListener('change', () => {
       if (!input.value) return
