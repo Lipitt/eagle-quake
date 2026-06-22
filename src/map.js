@@ -20,8 +20,12 @@ export function initMap() {
       const { place, mag, time } = e.features[0].properties
       const coords = e.features[0].geometry.coordinates
 
-      if (activePopup && activeCoords &&
-          coords[0] === activeCoords[0] && coords[1] === activeCoords[1]) {
+      if (
+        activePopup &&
+        activeCoords &&
+        coords[0] === activeCoords[0] &&
+        coords[1] === activeCoords[1]
+      ) {
         activePopup.remove()
         activePopup = null
         activeCoords = null
@@ -69,27 +73,21 @@ export function updateMapData(geojson) {
     type: 'circle',
     source: 'quakes',
     paint: {
-      'circle-radius': [
-        'interpolate',
-        ['linear'],
-        ['get', 'mag'],
-        1, 4,
-        4, 8,
-        7, 20,
-        9, 35,
-      ],
+      'circle-radius': ['interpolate', ['linear'], ['get', 'mag'], 1, 4, 4, 8, 7, 20, 9, 35],
       'circle-color': [
         'interpolate',
         ['linear'],
         ['get', 'mag'],
-        1, '#ffffb2',
-        4, '#fd8d3c',
-        7, '#bd0026',
+        1,
+        '#ffffb2',
+        4,
+        '#fd8d3c',
+        7,
+        '#bd0026',
       ],
       'circle-opacity': 0.8,
       'circle-stroke-width': 1,
       'circle-stroke-color': '#fff',
     },
   })
-
 }
