@@ -15,12 +15,20 @@
       </div>
       <form class="sidebar__form" id="filter-form">
         <div class="sidebar__field">
-          <label class="sidebar__label" for="starttime">Start date</label>
-          <input class="sidebar__input" type="date" id="starttime" name="starttime" required>
+          <label class="sidebar__label" for="date-preset">Date range</label>
+          <select class="sidebar__input" id="date-preset">
+            <option value="last2">Last 2 days</option>
+            <option value="last7">Last 7 days</option>
+            <option value="last30">Last 30 days</option>
+            <option value="last365">Last year</option>
+            <option value="custom">Custom</option>
+          </select>
         </div>
-        <div class="sidebar__field">
-          <label class="sidebar__label" for="endtime">End date</label>
-          <input class="sidebar__input" type="date" id="endtime" name="endtime" required>
+        <div class="sidebar__field sidebar__field--hidden" id="custom-dates">
+          <label class="sidebar__label" for="starttime">Start date</label>
+          <input class="sidebar__input" type="date" id="starttime" name="starttime">
+          <label class="sidebar__label" for="endtime" style="margin-top: 8px">End date</label>
+          <input class="sidebar__input" type="date" id="endtime" name="endtime">
         </div>
         <div class="sidebar__field">
           <label class="sidebar__label" for="minmagnitude">Min magnitude</label>
