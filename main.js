@@ -30,9 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return
     }
 
-    const cacheLabel = data.fromCache === 'overlap' ? ' (filtered from cache)' : data.fromCache ? ' (from cache)' : ''
     status.hidden = false
-    status.textContent = `${data.geojson.features.length} earthquakes found.${cacheLabel}`
+    status.textContent = `${data.geojson.features.length} earthquakes found.${data.fromCache ? ' (from cache)' : ''}`
     status.className = 'panel__status'
     sidebar.classList.remove('sidebar--open')
     toggleBtn.hidden = false

@@ -41,14 +41,3 @@ export function setCache(key, data) {
     })
   })
 }
-
-export function getAllCacheEntries() {
-  return openDB().then((db) => {
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(STORE_NAME, 'readonly')
-      const request = tx.objectStore(STORE_NAME).getAll()
-      request.onsuccess = (e) => resolve(e.target.result)
-      request.onerror = (e) => reject(e.target.error)
-    })
-  })
-}
