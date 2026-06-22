@@ -1,46 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eagle Quake</title>
-</head>
-<body>
-  <div class="app">
-    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle filters">&#9776;</button>
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar__header">
-        <h1 class="sidebar__title">Eagle Quake</h1>
-        <button class="sidebar__close" id="sidebar-close" aria-label="Close filters">&#x2715;</button>
-      </div>
-      <form class="sidebar__form" id="filter-form">
-        <div class="sidebar__field">
-          <label class="sidebar__label" for="date-preset">Date range</label>
-          <select class="sidebar__input" id="date-preset">
-            <option value="last2">Last 2 days</option>
-            <option value="last7">Last 7 days</option>
-            <option value="last30">Last 30 days</option>
-            <option value="last365">Last year</option>
-            <option value="custom">Custom</option>
-          </select>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eagle Quake</title>
+  </head>
+  <body>
+    <div class="app">
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle filters">
+        &#9776;
+      </button>
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar__header">
+          <h1 class="sidebar__title">Eagle Quake</h1>
+          <button class="sidebar__close" id="sidebar-close" aria-label="Close filters">
+            &#x2715;
+          </button>
         </div>
-        <div class="sidebar__field sidebar__field--hidden" id="custom-dates">
-          <label class="sidebar__label" for="starttime">Start date</label>
-          <input class="sidebar__input" type="date" id="starttime" name="starttime">
-          <label class="sidebar__label" for="endtime" style="margin-top: 8px">End date</label>
-          <input class="sidebar__input" type="date" id="endtime" name="endtime">
-        </div>
-        <div class="sidebar__field">
-          <label class="sidebar__label" for="minmagnitude">Min magnitude</label>
-          <input class="sidebar__input" type="number" id="minmagnitude" name="minmagnitude"
-            min="0" max="10" step="0.1" value="4">
-        </div>
-        <p class="panel__status" id="status" hidden></p>
-        <button class="sidebar__submit" type="submit">Search</button>
-      </form>
-    </aside>
-    <main class="map-container" id="map"></main>
-  </div>
-  <script type="module" src="/main.js"></script>
-</body>
+        <form class="sidebar__form" id="filter-form">
+          <div class="sidebar__field">
+            <label class="sidebar__label" for="date-preset">Date range</label>
+            <select class="sidebar__input" id="date-preset">
+              <option value="last2">Last 2 days</option>
+              <option value="last7">Last 7 days</option>
+              <option value="last30">Last 30 days</option>
+              <option value="last365">Last year</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <div class="sidebar__field sidebar__field--hidden" id="custom-dates">
+            <label class="sidebar__label" for="starttime">Start date</label>
+            <input class="sidebar__input" type="date" id="starttime" name="starttime" />
+            <label class="sidebar__label" for="endtime" style="margin-top: 8px">End date</label>
+            <input class="sidebar__input" type="date" id="endtime" name="endtime" />
+          </div>
+          <div class="sidebar__field">
+            <label class="sidebar__label" for="minmagnitude">Min magnitude</label>
+            <input
+              class="sidebar__input"
+              type="number"
+              id="minmagnitude"
+              name="minmagnitude"
+              min="0"
+              max="10"
+              step="0.1"
+              value="4"
+            />
+          </div>
+          <p class="panel__status" id="status" hidden></p>
+          <button class="sidebar__submit" type="submit">Search</button>
+        </form>
+      </aside>
+      <main class="map-container" id="map"></main>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
 </html>

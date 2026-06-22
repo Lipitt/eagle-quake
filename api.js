@@ -9,10 +9,11 @@ export function fetchEarthquakes({ starttime, endtime, minmagnitude }) {
   })
 
   return fetch(`${BASE_URL}?${params}`).then((r) => {
-    if (!r.ok) return r.text().then((text) => {
-      const match = text.match(/\d+ matching events.+/)
-      throw new Error(match ? match[0] : `USGS API error: ${r.status}`)
-    })
+    if (!r.ok)
+      return r.text().then((text) => {
+        const match = text.match(/\d+ matching events.+/)
+        throw new Error(match ? match[0] : `USGS API error: ${r.status}`)
+      })
     return r.json()
   })
 }
