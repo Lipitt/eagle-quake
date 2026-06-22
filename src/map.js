@@ -51,6 +51,10 @@ export function initMap() {
       })
     })
 
+    map.on('dblclick', 'quakes-layer', (e) => {
+      e.preventDefault()
+    })
+
     map.on('mouseenter', 'quakes-layer', () => {
       map.getCanvas().style.cursor = 'pointer'
     })

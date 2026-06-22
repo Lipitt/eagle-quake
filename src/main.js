@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const datePreset = document.getElementById('date-preset')
   const customDates = document.getElementById('custom-dates')
 
+  if (window.matchMedia('(max-width: 640px)').matches) {
+    sidebar.classList.add('sidebar--open')
+    toggleBtn.hidden = true
+  }
+
   worker.onmessage = ({ data }) => {
     submitBtn.disabled = false
 
@@ -43,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
       customDates.classList.remove('sidebar__field--hidden')
     } else {
       customDates.classList.add('sidebar__field--hidden')
+      document.getElementById('starttime').value = ''
+      document.getElementById('endtime').value = ''
     }
   })
 
