@@ -13,6 +13,14 @@ npm run dev
 
 Then open http://localhost:3000 in your browser.
 
+## Stack
+
+- **Vanilla JS** — no framework
+- **Vite** — build tool
+- **MapLibre GL JS** — map rendering
+- **SCSS** — styles
+- **OpenFreeMap** — free basemap, no API key required
+
 ## Features
 
 - Sidebar filter form with date presets and magnitude input
